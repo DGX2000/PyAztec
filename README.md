@@ -44,8 +44,8 @@ The decoding process is split into four steps, the beginning of every step shoul
 ## Encoding Process Draft
 
 # About the Aztec Code
-[General Information](./about_aztec/general)
+[General Information](./about_aztec/general.md)
 
-[Decoding](./about_aztec/decoding)
+[Decoding](./about_aztec/decoding.md)
 
-[Encoding](./about_aztec/encoding)
+[Encoding](./about_aztec/encoding.md)
