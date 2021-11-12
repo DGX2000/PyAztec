@@ -6,7 +6,7 @@ Steps of the Decoding Process:
 2. Calculate the total amount of bits of the codewords and padding, depending on the amount of layers bits might need to be skipped at the beginning:
     * Compact: **(88 + 16\*L)\*L** with L=number of layers
     * Full: **(112 + 16\*L)\*L** with L=number of layers
-3. Read all the bits for the previously obtained number of data codewords. The pattern for reading this bitstring is peculiar and best left to the examples below. Furthermore any stuffed bits (complementary bits that the encoder inserts if all but the last bit of a codeword are of the same value) need to be skipped. Even further a full Aztec symbol has a reference grid (alternating bits in every 16th row and column, centered on the bulls-eye) which also needs to be skipped.  
+3. Read all the bits for the previously obtained number of data codewords. The pattern for reading this bitstring is peculiar and best left to the examples below. Furthermore any stuffed bits (complementary bits that the encoder inserts if all but the last bit of a codeword are of the same value) need to be skipped. Even further a full Aztec symbol has a reference grid (alternating bits in every 16th row and column, centered on the bulls-eye; see image below) which also needs to be skipped.  
 ![Reference Grid on a Symbol of Maximum Size (151x151)](reference_grid_maximum.png)
 4. Once all the bits of the encoded data are collected, the translation process into the original data can finally start. The bits are ordered in big-endian and the decoder starts in the **Upper** mode of the following encoding table.
 
@@ -56,7 +56,43 @@ Steps of the Decoding Process:
 
 ### Example 1: Straightforward Decoding
 
+Let's decode the following Aztec symbol:
+![Aztec Symbol with Digits](decoding_example_1.png)
 
+We start by reading in the amount of layers. The layer bits are **0b00** which equals **0** in base-10, add 1 and we get **1** as number of layers. The symbol is compact and according to the formula **(88 + 16\*L)\*L** for the amount of bits, there are **104** bits to be read in the layers. Since 104 does not divide evenly by the 6-bit long codewords there are 2 padding bits in the beginning that need to be skipped.
+
+Now we decode the number of datawords. Those bits are **0b001000** which equals **8** in base-10, add 1 and we get **9** as number of datawords.
+
+Let's start reading in the 9 datawords (9\*6 = **54 bits**) from the top-left:
+```
+   00 01 00 00 11 00 10 01 11 00 00 01
+10 00 01 10 01 00 11 11 00 01 10 10
+00 10 
+```
+
+Now rearrange them to 6-bit datawords, so that any stuffed bits and erasures are more easily seen:
+```
+000100 001100 100111 00000X
+100001 100100 111100 011010
+001011 
+```
+
+A stuffed bit was removed in the fourth codeword. Now, the process of decoding can start, we start in the **Upper** mode and take 5 bits:
+```
+0b00010 = 3 => A
+0b00011 = 4 => B
+0b00100 = 5 => C
+0b11100 = 28 => L/L (following characters are in lower mode)
+0b00010 = 3 => a
+0b00011 = 4 => b
+0b00100 = 5 => c
+0b11110 = 30 => D/L (following characters are digits, 4-bits a digit)
+0b0011 = 3 => 1
+0b0100 = 4 => 2
+0b0101 = 5 => 3
+```
+
+The encoded data was: 'ABCabc123'.
 
 
 ### Example 2: Decoding Digits
