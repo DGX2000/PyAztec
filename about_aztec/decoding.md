@@ -8,9 +8,9 @@ Steps of the Decoding Process:
     * Full: **(112 + 16\*L)\*L** with L=number of layers
 3. Read all the bits for the previously obtained number of data codewords. The pattern for reading this bitstring is peculiar and best left to the examples below. Furthermore any stuffed bits (complementary bits that the encoder inserts if all but the last bit of a codeword are of the same value) need to be skipped. Even further a full Aztec symbol has a reference grid (alternating bits in every 16th row and column, centered on the bulls-eye) which also needs to be skipped.  
 ![Reference Grid on a Symbol of Maximum Size (151x151)](reference_grid_maximum.png)
-4. Once all the bits of the encoded data are collected, the translation process into the original data can finally start.
+4. Once all the bits of the encoded data are collected, the translation process into the original data can finally start. The bits are ordered in big-endian and the decoder starts in the **Upper** mode of the following encoding table.
 
- Value | Upper | Lower | Mixed | Punct | Digit
+ Value | Upper | Lower | Mixed | Punctuation | Digit
 ---|---|---|---|---|---
  0 | P/S | P/S | P/S | FLG(n) | P/S
  1 | SP | SP | SP | CR | SP 
@@ -43,19 +43,63 @@ Steps of the Decoding Process:
  28 | L/L | U/S | L/L | ] | 
  29 | M/L | M/L | U/L | { | 
  30 | D/L | D/L | P/L | } | 
- 31 | B/S | B/S | B/S | U/L | 
+ 31 | B/S | B/S | B/S | U/L |  
 
-- special notes
+    * SP: Space
+    * CR: Carriage return
+    * LF: Linefeed
+    * Any **x/S** with **x** being **U** or **P** shifts to the mode **Upper** or **Punctuation** for a **single** following character. 
+    * Any **x/L** with **x** being **U**, **L**, **M**, **P**, or **D** shifts to the mode **Upper**, **Lower**, **Mixed**, **Punctuation**, or **Digit** for **all** the following characters until another shift happens.
+    * **B/S** indicates a switch to 8-bit characters. Directly after it a 5-bit codeword encodes the number of 8-bit characters that will follow. If that codeword was non-zero, a 11-bit codeword follows that gives the number of following 8-bit characters less 31. The 8-bit characters with a value from 0-127 are interpreted as 'ASCII' characters, 128-255 are interpreted as 'Latin 1'.
+    * TODO: Mixed mode (less important atm)
+    * TODO: FLG(n) Info (less important atm)
 
 ### Example 1: Straightforward Decoding
 
-- image for decoding mode message
-- image for decoding codewords
+
+
 
 ### Example 2: Decoding Digits
 
-- image for decoding mode message
-- image for decoding codewords
+The following Aztec symbol contains a sequence of digits, let's decode it:
+![Aztec Symbol with Digits](decoding_example_2.png)
+
+We start by reading in the amount of layers. The layer bits are **0b00** which equals **0** in base-10, add 1 and we get **1** as number of layers.
+- explain the 2 skipped bits at the beginning
+Then we decode the number of datawords. Those bits are **0b000110** which equals **6** in base-10, add 1 and we get **7** as number of datawords.
+
+Let's start reading in the 7 datawords (7*6 = **42 bits**) from the top-left:
+```
+   11 11 00 01 10 10 00 10 10 11 00 11
+11 00 01 00 11 01 01 11 11
+```
+
+Let's rearrange them to 6-bit datawords, so that possible stuffed bits and erasures are more easily seen:
+```
+111100 011010 001010 110011
+110001 001101 011111
+```
+There are no stuffed bits to remove here.
+
+```
+11110 0011 0100 0101 0110 0111
+1000 1001 1010 1111 1
+```
+
+Finally, the decoding can start, we start in the **Upper** mode and take 5 bits:
+```
+0b11110 = 30 => D/L (we latch to **Digit** mode and now expect 4-bit digit codewords)
+0b0011 = 3 => 1
+0b0100 = 4 => 2
+0b0101 = 5 => 3
+0b0110 = 6 => 4
+0b0111 = 7 => 5
+0b1000 = 8 => 6
+0b1001 = 9 => 7
+0b1010 = 10 => 8
+```
+
+Therefore the encoded data was '12345678'.
 
 ### Example 3: Decoding 8-Bit Characters
 
