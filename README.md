@@ -17,21 +17,21 @@ code example
 
 - [X] documentation for the decoding process (./about_aztec)
 - [X] decode some Aztec codes manually for test-cases and documentation
-- [] structure the package according to best practices (docs/tests/init files)
-- [] write tests for **step 4** (manually decoded bitstrings)
-- [] implement **step 4** of decoding (without FLG(n)/Reed-Solomon/Mixed-Mode at the moment)
-- [] write tests for **step 2** (manually transcribed symbols)
-- [] implement **step 2** of decoding
-- [] write tests for **step 3** (manually read bitstrings)
-- [] implement **step 3** of decoding
-- [] update readme (more description, instructions, decoding example)
-- [] write documentation for the encoding process (Reed-Solomon and examples)
-- [] add FLG(n)/Reed-Solomon/Mixed-Mode to **step 4** of decoding for error handling
-- [] start draft for the encoding process
-- [] implement encoding process
-- [] update readme (encoding example)
-- [] implement **step 1** of decoding
-- [] update readme (final decoding example)
+- [ ] structure the package according to best practices (docs/tests/init files)
+- [ ] write tests for **step 4** (manually decoded bitstrings)
+- [ ] implement **step 4** of decoding (without FLG(n)/Reed-Solomon/Mixed-Mode at the moment)
+- [ ] write tests for **step 2** (manually transcribed symbols)
+- [ ] implement **step 2** of decoding
+- [ ] write tests for **step 3** (manually read bitstrings)
+- [ ] implement **step 3** of decoding
+- [ ] update readme (more description, instructions, decoding example)
+- [ ] write documentation for the encoding process (Reed-Solomon and examples)
+- [ ] add FLG(n)/Reed-Solomon/Mixed-Mode to **step 4** of decoding for error handling
+- [ ] start draft for the encoding process
+- [ ] implement encoding process
+- [ ] update readme (encoding example)
+- [ ] implement **step 1** of decoding
+- [ ] update readme (final decoding example)
 
 ## Decoding Process Draft
 The four steps are:
@@ -53,5 +53,5 @@ The four steps are:
 
 # About the Aztec Code
 [General](./about_aztec/general.md)  
-|-[Decoding (with Examples)](./about_aztec/decoding.md)  
-|-[Encoding (with Examples)](./about_aztec/encoding.md)  
+|--[Decoding (with Examples)](./about_aztec/decoding.md)  
+|--[Encoding (with Examples)](./about_aztec/encoding.md)  
