@@ -17,7 +17,7 @@ code example
 
 - [X] documentation for the decoding process (./about_aztec)
 - [X] decode some Aztec codes manually for test-cases and documentation
-- [ ] structure the package according to best practices (docs/tests/init files)
+- [X] structure the package according to best practices (tests/init files)
 - [ ] write tests for **step 4** (manually decoded bitstrings)
 - [ ] implement **step 4** of decoding (without FLG(n)/Reed-Solomon/Mixed-Mode at the moment)
 - [ ] write tests for **step 2** (manually transcribed symbols)
@@ -26,7 +26,7 @@ code example
 - [ ] implement **step 3** of decoding
 - [ ] update readme (more description, instructions, decoding example)
 - [ ] write documentation for the encoding process (Reed-Solomon and examples)
-- [ ] add FLG(n)/Reed-Solomon/Mixed-Mode to **step 4** of decoding for error handling
+- [ ] add FLG(n)/Reed-Solomon/Mixed-Mode to **step 4** of decoding
 - [ ] start draft for the encoding process
 - [ ] implement encoding process
 - [ ] update readme (encoding example)
