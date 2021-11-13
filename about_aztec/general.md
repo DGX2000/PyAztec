@@ -1,9 +1,8 @@
 # General Information
-[LINKS TO WIKIPEDIA for Aztec code and QR code]
 The [Aztec code](https://en.wikipedia.org/wiki/Aztec_Code) is a two-dimensional barcode, similar to the more commonly known QR code. As most distinct feature it has a bulls-eye pattern of either **9x9 ('compact')** or **13x13 pixels ('full')** at the center. The corners of the core are used as orientation marks and the four lines of pixels between the corners store the **mode message**.
 
-![Center of Compact Symbol](bullseye_compact)
-![Center of Full Symbol](bullseye_full)
+![Center of Compact Symbol](bullseye_compact.png)
+![Center of Full Symbol](bullseye_full.png)
 
 The mode message begins at the corner with three black pixels and travels around the bulls-eye pattern in a clockwise manner.
 
@@ -19,7 +18,7 @@ For the full code, the following holds:
 
 The **data(-containing) codewords** are **6 bits** long and reside in the outer layers. They begin at the top-left and spiral around the code in counter-clockwise manner up to the top-left of the mode message (see picture).
 
-- picture for layout of codewords
+![Layout of Symbol (wikipedia.org/wiki/Aztec_Code)](aztec_encoding_wikipedia.png)
 
 These codewords start with the actual encoded data and end with codewords for error-correction. The size of the error-correction codewords varies with the number of layers. There may also be bits for padding between the data and error-correction codewords.
 

@@ -13,26 +13,34 @@ code example
 ```
 
 # Roadmap
-## Currently In-Progress
+## ToDo
 
-* Write documentation about Aztec Code for possible contributors (only decoding for now)
-* Decode some Aztec codes by hand as test-cases and for documentation purposes
-* Structure the library according to best practices (documentation/tests/folder structure/necessary files)
-* Finish steps **2 to 4** of the decoding process (probably the most important use-case)
-
-## Things for the Future
-
-* Write a Reed-Solomon Code module for error handling
-* Start the draft for the encoding process
+- [X] documentation for the decoding process (./about_aztec)
+- [X] decode some Aztec codes manually for test-cases and documentation
+- [] structure the package according to best practices (docs/tests/init files)
+- [] write tests for **step 4** (manually decoded bitstrings)
+- [] implement **step 4** of decoding (without FLG(n)/Reed-Solomon/Mixed-Mode at the moment)
+- [] write tests for **step 2** (manually transcribed symbols)
+- [] implement **step 2** of decoding
+- [] write tests for **step 3** (manually read bitstrings)
+- [] implement **step 3** of decoding
+- [] update readme (more description, instructions, decoding example)
+- [] write documentation for the encoding process (Reed-Solomon and examples)
+- [] add FLG(n)/Reed-Solomon/Mixed-Mode to **step 4** of decoding for error handling
+- [] start draft for the encoding process
+- [] implement encoding process
+- [] update readme (encoding example)
+- [] implement **step 1** of decoding
+- [] update readme (final decoding example)
 
 ## Decoding Process Draft
-The decoding process is split into four steps, the beginning of every step should be part of the public interface of the library. The four steps are:
+The four steps are:
 
 1. Scan an input image for the bulls-eye pattern and determine whether it is a compact or full Aztec code. Then decode the mode message to get the number of layers and number of datawords. From the number of layers extrapolate the boundaries of the Aztec code. Finally transform the image to square (e.g. by perspective transform, rotation, cropping).
   * Takes **input image**
   * Gives **transformed image, size of bulls-eye pattern/type of Aztec code (compact or full), number of layers, number of datawords**
 2. Convert a cropped/quadratic image of the Aztec code to a 2-dimensional array of bits.
-  * Takes **transformed image, size of bulls-eye pattern/type of Aztec code (compact or full), number of layers, numbers of datawords (optional)**
+  * Takes **transformed image, size of bulls-eye pattern/type of Aztec code (compact or full), number of layers, numbers of datawords**
   * Gives **2-dimensional array of bits**
 3. Order the bits of the Aztec code into a linearly ordered bitstring that can be read by the finite state machine of **step 4**. During this process any stuffed bits need to be removed.
   * Takes **2-dimensional array of bits**
@@ -44,8 +52,6 @@ The decoding process is split into four steps, the beginning of every step shoul
 ## Encoding Process Draft
 
 # About the Aztec Code
-[General Information](./about_aztec/general.md)
-
-[Decoding](./about_aztec/decoding.md)
-
-[Encoding](./about_aztec/encoding.md)
+[General](./about_aztec/general.md)  
+|-[Decoding (with Examples)](./about_aztec/decoding.md)  
+|-[Encoding (with Examples)](./about_aztec/encoding.md)  

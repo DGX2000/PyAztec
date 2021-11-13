@@ -56,7 +56,7 @@ Steps of the Decoding Process:
 
 ### Example 1: Straightforward Decoding
 
-Let's decode the following Aztec symbol:
+Let's decode the following Aztec symbol:  
 ![Aztec Symbol with Digits](decoding_example_1.png)
 
 We start by reading in the amount of layers. The layer bits are **0b00** which equals **0** in base-10, add 1 and we get **1** as number of layers. The symbol is compact and according to the formula **(88 + 16\*L)\*L** for the amount of bits, there are **104** bits to be read in the layers. Since 104 does not divide evenly by the 6-bit long codewords there are 2 padding bits in the beginning that need to be skipped.
@@ -97,7 +97,7 @@ The encoded data was: 'ABCabc123'.
 
 ### Example 2: Decoding Digits
 
-The following Aztec symbol contains a sequence of digits, let's decode it:
+The following Aztec symbol contains a sequence of digits, let's decode it:  
 ![Aztec Symbol with Digits](decoding_example_2.png)
 
 We start by reading in the amount of layers. The layer bits are **0b00** which equals **0** in base-10, add 1 and we get **1** as number of layers. The symbol is compact and according to the formula **(88 + 16\*L)\*L** for the amount of bits, there are **104** bits to be read in the layers. Since 104 does not divide evenly by the 6-bit long codewords there are 2 padding bits in the beginning that need to be skipped.
@@ -132,7 +132,7 @@ The encoded data was: '12345678'.
 
 ### Example 3: Decoding 8-Bit Characters
 
-The following Aztec symbol contains 8-bit characters, let's decode it:
+The following Aztec symbol contains 8-bit characters, let's decode it:  
 ![Aztec Symbol with 8-Bit Characters](decoding_example_3.png)
 
 We start by reading in the amount of layers. The layer bits are **0b01** which equals **1** in base-10, add 1 and we get **2** as number of layers. The symbol is compact and according to the formula **(88 + 16\*L)\*L** for the amount of bits, there are **240** bits to be read in the layers. Since 240 divides evenly by the 6-bit long codewords there are no padding bits in the beginning that need to be skipped.
