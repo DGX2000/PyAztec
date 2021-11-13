@@ -42,8 +42,8 @@ mode_length_dictionary = {
     'B': 5,
     'BE': 11,
     'BR': 8,
-    'F1': 3,
-    'F2': 4
+    'F': 3,
+    'FD': 4
 }
 
 decode_function_dictionary = {
