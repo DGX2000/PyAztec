@@ -6,7 +6,7 @@ import cv2
 
 sys.path.append(os.path.abspath(os.path.join('..', 'pyaztec')))
 import pyaztec.decode_bitstring
-import pyaztec.sample_image_to_array
+import pyaztec.decode_cropped_image
 import pyaztec.util
 
 
@@ -20,7 +20,9 @@ class DecodingTests(unittest.TestCase):
     """ Test cases for decoding. """
 
     def test_decoding_cropped_image(self):
-        pyaztec.sample_image_to_array.sample_image_to_array(prepare_cropped_image('ABCabc123.png'), 1, True)
+        img1 = prepare_cropped_image('ABCabc123.png')
+        result = pyaztec.decode_cropped_image.decode_cropped_image(img1, 1, True, 9)
+        assert result == 'ABCabc123'
 
     def test_bitstring_decoding(self):
         with open('step_4_data') as f:

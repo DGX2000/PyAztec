@@ -7,7 +7,10 @@ def sample_image_to_array(img: np.ndarray, layers: int, compact: bool):
 
     # gets the rows/columns of reference grid lines, since they need to be excluded
     # during the following sampling of the source image
-    grid_lines = util.reference_grid(side_length)
+    if not compact:
+        grid_lines = util.reference_grid(side_length)
+    else:
+        grid_lines = []
 
     step_x, step_y = img.shape[0] / side_length, img.shape[1] / side_length
     offset_x, offset_y = step_x / 2, step_y / 2
