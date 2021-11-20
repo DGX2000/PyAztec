@@ -87,6 +87,10 @@ def decode_bitstring(bitstring: str):
         decoded_bits = decode_function_dictionary[current_mode](bits)
 
         if isinstance(decoded_bits, int):
+            if current_mode == 'BE':
+                mode_countdown = decoded_bits + 31
+                current_mode = 'BR'
+
             if current_mode == 'B':
                 if decoded_bits == 0:
                     mode_countdown = 1
@@ -94,10 +98,6 @@ def decode_bitstring(bitstring: str):
                 else:
                     mode_countdown = decoded_bits
                     current_mode = 'BR'
-
-            if current_mode == 'BE':
-                mode_countdown = decoded_bits + 31
-                current_mode = 'BR'
 
             if current_mode == 'F1':
                 mode_countdown = decoded_bits
