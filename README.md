@@ -20,10 +20,10 @@ code example
 - [X] structure the package according to best practices (tests/init files)
 - [X] write tests for **step 4** (manually decoded bitstrings)
 - [X] implement **step 4** of decoding (without FLG(n)/Reed-Solomon/Mixed-Mode at the moment)
-- [ ] write tests for **step 2** (manually transcribed symbols)
-- [ ] implement **step 2** of decoding
-- [ ] write tests for **step 3** (manually read bitstrings)
-- [ ] implement **step 3** of decoding
+- [X] write tests for **step 2** (manually transcribed symbols)
+- [X] implement **step 2** of decoding
+- [X] write tests for **step 3** (manually read bitstrings)
+- [X] implement **step 3** of decoding
 - [ ] update readme (more description, instructions, decoding example)
 - [ ] write documentation for the encoding process (Reed-Solomon and examples)
 - [ ] add FLG(n)/Reed-Solomon/Mixed-Mode to **step 4** of decoding
