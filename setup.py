@@ -3,7 +3,7 @@ from distutils.core import setup
 with open('README.md') as f:
     readme_md = f.read()
 
-setup(name='PyAztec',
+setup(name='pyaztec',
       version='0.1',
       description='Aztec Code Parser',
       long_description=readme_md,

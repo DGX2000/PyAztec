@@ -16,11 +16,11 @@ For the full code, the following holds:
 * the **following 11 bits** equal the number of data-containing codewords minus one (**D-1**),
 * any of the remaining bits are for error correction.
 
-The **data(-containing) codewords** are **6 bits** long and reside in the outer layers. They begin at the top-left and spiral around the code in counter-clockwise manner up to the top-left of the mode message (see picture).
+The **codewords** are **6 to 12 bits** long (depending on the amount of layers) and reside in the outer layers. They begin at the top-left and spiral around the code in counter-clockwise manner up to the top-left of the mode message (see picture).
 
 ![Layout of Symbol (wikipedia.org/wiki/Aztec_Code)](aztec_encoding_wikipedia.png)
 
-These codewords start with the actual encoded data and end with codewords for error-correction. The size of the error-correction codewords varies with the number of layers. There may also be bits for padding between the data and error-correction codewords.
+These codewords start with the actual encoded data and end with codewords for error-correction. There may also be bits for padding between the data and error-correction codewords.
 
 ## Sources and Further Reading
 * [Wikipedia](https://en.wikipedia.org/wiki/Aztec_Code)
