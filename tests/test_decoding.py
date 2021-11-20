@@ -1,5 +1,8 @@
 import unittest
-import pyaztec
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join('..', 'pyaztec')))
+import pyaztec.decode_bitstring
 
 
 class DecodingTests(unittest.TestCase):
@@ -12,7 +15,7 @@ class DecodingTests(unittest.TestCase):
         for case in test_cases:
             bitstring, result = case.split('=', maxsplit=1)
             result = result.strip('\n')
-            assert pyaztec.decode_bitstring(bitstring) == result
+            assert pyaztec.decode_bitstring.decode_bitstring(bitstring) == result
 
 
 if __name__ == '__main__':
