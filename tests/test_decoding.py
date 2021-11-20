@@ -1,13 +1,26 @@
 import unittest
 import sys
 import os
+
+import cv2
+
 sys.path.append(os.path.abspath(os.path.join('..', 'pyaztec')))
 import pyaztec.decode_bitstring
+import pyaztec.sample_image_to_array
 import pyaztec.util
+
+
+def prepare_cropped_image(filename: str):
+    img = cv2.imread('cropped_images/' + filename)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    return cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
 
 class DecodingTests(unittest.TestCase):
     """ Test cases for decoding. """
+
+    def test_decoding_cropped_image(self):
+        pyaztec.sample_image_to_array.sample_image_to_array(prepare_cropped_image('ABCabc123.png'), 1, True)
 
     def test_bitstring_decoding(self):
         with open('step_4_data') as f:
