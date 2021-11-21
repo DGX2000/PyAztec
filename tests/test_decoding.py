@@ -10,22 +10,35 @@ import pyaztec.decode_cropped_image
 import pyaztec.util
 
 
-def prepare_cropped_image(filename: str):
+def cropped_image_helper(filename: str, layers: int, data_words: int, compact: bool):
     img = cv2.imread('cropped_images/' + filename)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    return cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+    img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+    result = pyaztec.decode_cropped_image.decode_cropped_image(img, layers, compact, data_words)
+    return result
 
 
 class DecodingTests(unittest.TestCase):
     """ Test cases for decoding. """
 
     def test_decoding_cropped_image(self):
-        img1 = prepare_cropped_image('ABCabc123.png')
-        result = pyaztec.decode_cropped_image.decode_cropped_image(img1, 1, True, 9)
-        assert result == 'ABCabc123'
+        with open('cropped_image_data') as f:
+            test_cases = f.readlines()
+
+        for case in test_cases:
+            params, result = case.split('=', maxsplit=1)
+            params = params.split(',')
+            result = result.strip('\n')
+
+            bitstring = cropped_image_helper(params[0], int(params[1]), int(params[2]), bool(params[3]))
+            if result == '?':
+                print(params[0] + '\t' + bitstring)
+            else:
+                assert bitstring == result
+
 
     def test_bitstring_decoding(self):
-        with open('step_4_data') as f:
+        with open('decode_bitstring_data') as f:
             test_cases = f.readlines()
 
         for case in test_cases:
