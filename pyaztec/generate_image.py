@@ -1,5 +1,7 @@
 from encode_bitstring import encode
 import util
+import cv2.cv2 as cv2
+import numpy as np
 
 
 def guess_total_bits(encoded_message: str) -> int:
@@ -67,6 +69,22 @@ def add_stuffing_bits(bit_list: list, codeword_length: int):
     return bit_list
 
 
+def compute_mode_message(layers: int, data_words: int, compact: bool):
+    # TODO: Add reed-solomon encoding
+    # TODO: Add mode message for full symbol
+    if compact:
+        mode_message = '{:02b}'.format(layers-1) + '{:05b}'.format(data_words-1) + '0'*21
+    else:
+        mode_message = "123456"
+    return list(mode_message)
+
+
+def write_bulls_eye(symbol: list, compact: bool):
+    mid = len(symbol) // 2
+    symbol[mid][mid] = '1'
+    pass
+
+
 def generate_image(filename: str, message: str):
     encoded_string = encode(message)
 
@@ -103,13 +121,15 @@ def generate_image(filename: str, message: str):
     symbol = [['0'] * side_length for i in range(side_length)]
 
     write_bulls_eye(symbol, symbol_size == 'compact')
-    write_mode_message(symbol, mode_message, symbol_size == 'compact')
-    write_data(symbol, encoded_list, symbol_size == 'compact')
+    #write_mode_message(symbol, mode_message, symbol_size == 'compact')
+    #write_data(symbol, encoded_list, symbol_size == 'compact')
 
-    # turn into numpy array
-    # magnify (if needed)
-    # write to image
-    pass
+    # TODO: get rid of this transformation step after refactoring
+    symbol = [[int(c)*255 for c in row] for row in symbol]
+
+    image = cv2.bitwise_not(np.array(symbol, dtype=np.uint8))
+    # TODO: magnify (maybe?)
+    cv2.imwrite(filename, image)
 
 
-generate_image('test.png', 'ABCabc123')
+generate_image("file.png", "ABCabc123")

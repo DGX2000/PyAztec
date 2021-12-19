@@ -4,9 +4,10 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join('..', 'pyaztec')))
 import pyaztec.encode_bitstring
+import pyaztec.generate_image
 
 
-class DecodingTests(unittest.TestCase):
+class EncodingTests(unittest.TestCase):
     """ Test cases for encoding. """
 
     def test_bitstring_encoding(self):
@@ -17,6 +18,9 @@ class DecodingTests(unittest.TestCase):
             case = case.strip('\n')
             result, bitstring = case.split('=', maxsplit=1)
             assert pyaztec.encode_bitstring.encode(bitstring) == result
+
+    def test_code_generation(self):
+        pyaztec.generate_image("generated_images/test.png", "ABCabc123")
 
 
 if __name__ == '__main__':

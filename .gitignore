@@ -130,3 +130,7 @@ dmypy.json
 
 # PyCharm
 .idea/
+
+# (temporary) outputs to be ignored
+tests/generated_images/*
+pyaztec/file.png
